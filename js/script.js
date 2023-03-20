@@ -4,6 +4,7 @@
 // Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro ed emetto un messaggio in console con il numero della cella cliccata.
 
 //Dichiarazioni
+let isGameOver = false;
 let playBtn = document.querySelector(".play-btn");
 playBtn.addEventListener("click", startGame);
 
@@ -12,6 +13,9 @@ function startGame() {
   const grid = document.querySelector(".grid");
   // reset contenuto precedente
   grid.innerHTML = "";
+  document.querySelector(".title").innerHTML = "";
+  document.querySelector(".result").innerHTML = "";
+  isGameOver = false;
   //Difficoltà
   const level = parseInt(document.getElementById("select").value);
   let cellNumber;
@@ -35,25 +39,43 @@ function startGame() {
     grid.append(newItem);
   }
 
-  const bomb = generateNumber(16, cellNumber)
+  const bomb = generateNumber(16, cellNumber);
   console.log(bomb);
-  const maxClick = cellNumber - 15;
-  console.log(maxClick); 
-
-//Funzione click sulla cella
+  const maxClick = cellNumber - 16;
+  
+  //Funzione click sulla cella
+  
+  let numeberClickedArrey = [];
   function clickChoice() {
-    const clickedNumber = parseInt(this.textContent);
-    const numeberClickedArrey = [];
-    if (bomb.includes(clickedNumber)) { //Se il numero è nell' arrey delle bombe 
-       this.classList.add("red");//Coloro di rosso la cella
-       console.log("BOMBA, Hai perso riprova di nuovo");
-     } else {
-       if (!bomb.includes(clickedNumber)) { //Se il numero non appartiene all'arrey delle bombe 
-        this.classList.add("blue");//Coloro di blu la cela
-        numeberClickedArrey.push(clickedNumber);//Pusho il numero cliccato nell'arrey dei numeri selezionti
-        console.log(numeberClickedArrey);
-       }
-     }
+    let message = "";
+    let result = "";
+    if (isGameOver === false) {
+      const clickedNumber = parseInt(this.textContent);
+      if (bomb.includes(clickedNumber)) {
+        //Se il numero è nell' arrey delle bombe
+        this.classList.add("red"); //Coloro di rosso la cella
+        console.log("BOMBA,Hai perso riprova");
+        message = "BOMBA, Hai perso riprova"
+        isGameOver = true;
+      } else {
+        if (!bomb.includes(clickedNumber)) {
+          //Se il numero non appartiene all'arrey delle bombe
+          this.classList.add("blue"); //Coloro di blu la cela
+          numeberClickedArrey.push(clickedNumber); //Pusho il numero cliccato nell'arrey dei numeri seleziont
+
+          if (numeberClickedArrey.length === maxClick) { //Condizione in cui vince l'utente
+            console.log("HAI VINTO, complimenti");
+            isGameOver = true;
+          }
+        }
+        return numeberClickedArrey;
+      }
+      console.log(numeberClickedArrey);
+      console.log(`Hai totalizzato ${numeberClickedArrey.length} punti`);
+      result = `Hai totalizzato ${numeberClickedArrey.length} punti`
+    }
+    document.querySelector(".title").innerHTML = message;
+    document.querySelector(".result").innerHTML = result;
   }
 }
 
@@ -67,21 +89,17 @@ function generateGrid(text) {
   return newBox;
 }
 
-
-
-
-
 function generateNumber(numberQuantity, maxNumber) {
   const number = [];
   while (number.length < numberQuantity) {
     const rdnNumbers = getRndInteger(1, maxNumber);
     if (!number.includes(rdnNumbers)) {
-      number.push(rdnNumbers)
+      number.push(rdnNumbers);
     }
   }
   return number;
 }
 
 function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) ) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
