@@ -37,16 +37,22 @@ function startGame() {
 
   const bomb = generateNumber(16, cellNumber)
   console.log(bomb);
+  const maxClick = cellNumber - 15;
+  console.log(maxClick); 
 
-
+//Funzione click sulla cella
   function clickChoice() {
-    // this.classList.toggle("blue");
-    // const clickedNumber = parseInt(this.textContent);
-    // console.log("Hai cliccato il numero", clickedNumber);
-    if (bomb) {
-       this.classList.add("red");
+    const clickedNumber = parseInt(this.textContent);
+    const numeberClickedArrey = [];
+    if (bomb.includes(clickedNumber)) { //Se il numero è nell' arrey delle bombe 
+       this.classList.add("red");//Coloro di rosso la cella
+       console.log("BOMBA, Hai perso riprova di nuovo");
      } else {
-       this.classList.add("blue")
+       if (!bomb.includes(clickedNumber)) { //Se il numero non appartiene all'arrey delle bombe 
+        this.classList.add("blue");//Coloro di blu la cela
+        numeberClickedArrey.push(clickedNumber);//Pusho il numero cliccato nell'arrey dei numeri selezionti
+        console.log(numeberClickedArrey);
+       }
      }
   }
 }
