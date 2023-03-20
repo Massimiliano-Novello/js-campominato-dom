@@ -1,0 +1,67 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    background-color: aquamarine;
+    width: 100%;
+    height: 100vh;
+}
+/* HEADER */
+.header {
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 100px;
+}
+
+.play-btn {
+    padding: 10px 50px;
+    font-size: .8rem;
+}
+
+/* MAIN */
+main {
+    width: 100%;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid {
+    padding: 40px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    width: calc(1000px / 11);
+    height: calc(1000px / 11);
+    border: 2px solid white;
+    color: black;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.red {
+    background-color: red;
+}
