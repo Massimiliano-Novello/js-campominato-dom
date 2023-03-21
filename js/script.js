@@ -55,20 +55,21 @@ function startGame() {
         //Se il numero è nell' arrey delle bombe
         this.classList.add("red"); //Coloro di rosso la cella
         console.log("BOMBA,Hai perso riprova");
+        alert("HAI PERSO, riprova")
         message = "BOMBA, Hai perso riprova"
         isGameOver = true;
       } else {
-        if (!bomb.includes(clickedNumber)) {
+        if (!numeberClickedArrey.includes(clickedNumber)) {
           //Se il numero non appartiene all'arrey delle bombe
           this.classList.add("blue"); //Coloro di blu la cela
           numeberClickedArrey.push(clickedNumber); //Pusho il numero cliccato nell'arrey dei numeri seleziont
-
+          console.log(numeberClickedArrey);
           if (numeberClickedArrey.length === maxClick) { //Condizione in cui vince l'utente
             console.log("HAI VINTO, complimenti");
             isGameOver = true;
           }
         }
-        return numeberClickedArrey;
+        return result;
       }
       console.log(numeberClickedArrey);
       console.log(`Hai totalizzato ${numeberClickedArrey.length} punti`);
